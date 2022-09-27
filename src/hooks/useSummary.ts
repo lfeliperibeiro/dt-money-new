@@ -1,8 +1,10 @@
-import { useContext } from 'react'
 import { TransactionsContext } from '../contexts/TransactionContext'
+import { useContextSelector } from 'use-context-selector'
 
 export function useSummary() {
-  const { transactions } = useContext(TransactionsContext)
+  const transactions = useContextSelector(TransactionsContext, (context) => {
+    return context.transactions
+  })
   return transactions.reduce(
     (acc, transaction) => {
       if (transaction.type === 'income') {
